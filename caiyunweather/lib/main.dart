@@ -1,8 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
+
+import 'MyDialog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -59,6 +64,54 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var shareList = [
+    {
+      "image": "images/ssdk_oks_classic_qq.png",
+      "title": "QQ",
+    },
+    {
+      "image": "images/ssdk_oks_classic_qzone.png",
+      "title": "QQ空间",
+    },
+    {
+      "image": "images/ssdk_oks_classic_sinaweibo.png",
+      "title": "微博",
+    },
+    {
+      "image": "images/ssdk_oks_classic_wechat.png",
+      "title": "微信",
+    },
+    {
+      "image": "images/ssdk_oks_classic_wechatmoments.png",
+      "title": "朋友圈",
+    },
+  ];
+  var weatherStatus = [
+    {"image": "images/map_layer_temp.png", "title": "体感", "tag": "-2°"},
+    {"image": "images/icon_windpower.png", "title": "风", "tag": "北风3级"},
+    {"image": "images/push_icon_humidity.png", "title": "湿度", "tag": "65%"},
+  ];
+  var weatherReportList = [
+    {
+      "image": "images/skyicon_partly_cloud_widget.png",
+      "title": "昨天",
+      "temp": "3°~20°",
+      "tag": "轻度"
+    },
+    {
+      "image": "images/skyicon_partly_cloud_night_widget.png",
+      "title": "今天",
+      "temp": "2°~7°",
+      "tag": "良好"
+    },
+    {
+      "image": "images/skyicon_cloud.png",
+      "title": "明天",
+      "temp": "1°-8°",
+      "tag": "优秀"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -69,15 +122,367 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return SafeArea(
         child: Scaffold(
+      backgroundColor: Colors.white70.withOpacity(0.9),
       body: Stack(
         children: [
           CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
                 child: Container(
-                  height: 200,
-                  color: Colors.blue,
-                  child: Text("data"),
+                  height: Get.height - 160,
+                  child: Stack(
+                    children: [
+                      // Container(
+                      //   color: ,
+                      // )
+                      Image.asset(
+                        "images/weatherbg_sunshine_new.jpg",
+                        scale: 2,
+                        width: Get.width,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 55,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12),
+                            child: SizedBox(
+                              height: 25,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(3)),
+                                    color: Colors.black.withOpacity(0.4)),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const SizedBox(
+                                      width: 3,
+                                    ),
+                                    Image.asset(
+                                      "images/notification_pm_excellent_color.png",
+                                      scale: 2,
+                                    ),
+                                    const SizedBox(
+                                      width: 3,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 5),
+                                      child: Text(
+                                        "24 优",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10, left: 12),
+                            child: SizedBox(
+                              height: 25,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(3)),
+                                    color: Colors.black.withOpacity(0.3)),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const SizedBox(
+                                      width: 3,
+                                    ),
+                                    Image.asset(
+                                      "images/alert_cold_blue_is.png",
+                                      scale: 2,
+                                    ),
+                                    const SizedBox(
+                                      width: 3,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 5),
+                                      child: Text(
+                                        "寒潮蓝色预警",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          SizedBox(
+                            width: Get.width,
+                            child: Stack(
+                              children: [
+                                const Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "5°",
+                                    style: TextStyle(
+                                        fontSize: 60, color: Colors.white),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 200, top: 20),
+                                    child: InkWell(
+                                      child: SizedBox(
+                                        height: 30,
+                                        child: DecoratedBox(
+                                          decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15)),
+                                              color: Colors.white24),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 5, vertical: 5),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Image.asset(
+                                                  "images/icon_feedback.png",
+                                                  scale: 2,
+                                                ),
+                                                const SizedBox(
+                                                  width: 3,
+                                                ),
+                                                const Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 5),
+                                                  child: Text(
+                                                    "反馈天气",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 12),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      onTap: () => showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              MyDialog(title: "我要反馈天气")),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                "多云",
+                                style: TextStyle(color: Colors.white),
+                              )
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 30),
+                            child: ListView.separated(
+                                shrinkWrap: true,
+                                itemBuilder: (_, index) {
+                                  var image = weatherStatus[index]["image"];
+                                  var title = weatherStatus[index]["title"];
+                                  var tag = weatherStatus[index]["tag"];
+                                  return SizedBox(
+                                    height: 35,
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          image!,
+                                          scale: 2,
+                                          color: Colors.white,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 5),
+                                          child: Text(
+                                            title!,
+                                            style: const TextStyle(
+                                                color: Colors.white54),
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          tag!,
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                                separatorBuilder: (_, index) => const Divider(
+                                      height: 0.5,
+                                      color: Colors.white,
+                                    ),
+                                itemCount: weatherStatus.length),
+                          ),
+                          Container(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(15, 120, 15, 40),
+                              child: Row(
+                                children: [
+                                  ClipOval(
+                                    child: SizedBox(
+                                      child: DecoratedBox(
+                                        decoration: const BoxDecoration(
+                                            color: Colors.white12),
+                                        child: Image.asset(
+                                          "images/push_icon_aqi.png",
+                                          scale: 2,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Image.asset(
+                                    "images/map.png",
+                                    scale: 4,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: SizedBox(
+                            height: 40,
+                            child: DecoratedBox(
+                              decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8),
+                                  ),
+                                  color: Colors.white),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      "images/horn.png",
+                                      scale: 4,
+                                    ),
+                                    const Padding(
+                                      padding: EdgeInsets.only(left: 15),
+                                      child: Text("最近的降雪带在150公里外呢"),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                sliver: SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 140,
+                    child: DecoratedBox(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8),
+                            child: Text("今明气温变化不大"),
+                          ),
+                          // ListView.separated(
+                          //     shrinkWrap: true,
+                          //     scrollDirection: Axis.horizontal,
+                          //     itemBuilder: (_, index) {
+                          //       var image = weatherReportList[index]["image"];
+                          //       var title = weatherReportList[index]["title"];
+                          //       var tag = weatherReportList[index]["tag"];
+                          //       var tamp = weatherReportList[index]["tamp"];
+                          //       return Text("adasdasd");
+                          //       return SizedBox(
+                          //         height: 110,
+                          //         width: 200,
+                          //         child: Row(
+                          //           children: [
+                          //             Image.asset(
+                          //               image!,
+                          //               scale: 3,
+                          //             ),
+                          //             Column(
+                          //               mainAxisSize: MainAxisSize.min,
+                          //               mainAxisAlignment:
+                          //                   MainAxisAlignment.spaceAround,
+                          //               children: [
+                          //                 Row(
+                          //                   children: [
+                          //                     Text(title!),
+                          //                     DecoratedBox(
+                          //                       decoration: BoxDecoration(
+                          //                           border: Border.all(
+                          //                             color: title == "轻度"
+                          //                                 ? Colors.yellow
+                          //                                 : Colors.green,
+                          //                             width: 1,
+                          //                           ),
+                          //                           borderRadius:
+                          //                               const BorderRadius.all(
+                          //                                   Radius.circular(
+                          //                                       3))),
+                          //                       child: Text(tag!),
+                          //                     )
+                          //                   ],
+                          //                 ),
+                          //                 Text(tamp!)
+                          //               ],
+                          //             )
+                          //           ],
+                          //         ),
+                          //       );
+                          //     },
+                          //     separatorBuilder: (_, index) {
+                          //       return const Divider(
+                          //         height: 110,
+                          //       );
+                          //     },
+                          //     itemCount: weatherReportList.length)
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
               // ListView.builder(itemBuilder: (_,int index)=>Container(
@@ -92,32 +497,36 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.transparent,
               ),
               child: Row(
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.add,
                     color: Colors.white,
                     size: 24,
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(left: 5),
                     child: Text(
                       "山东省  临沂市",
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.location_on_outlined,
                     color: Colors.white,
                     size: 14,
                   ),
-                  Spacer(),
-                  Icon(
-                    Icons.ios_share,
-                    color: Colors.white,
-                    size: 24,
+                  const Spacer(),
+                  InkWell(
+                    onTap: () => showShareDialog(),
+                    child: const Icon(
+                      Icons.ios_share,
+                      color: Colors.white,
+                      size: 24,
+                    ),
                   ),
                   InkWell(
-                    child: Padding(
+                    onTap: () => print("点击 用户中心"),
+                    child: const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       child: Icon(
                         Icons.account_circle,
@@ -134,4 +543,81 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ));
   }
+
+  ///分享底部dialog
+  showShareDialog() => showModalBottomSheet(
+      barrierColor: Colors.black.withOpacity(0.5),
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (builder) {
+        return SizedBox(
+          height: 270,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+
+                    ///横轴元素个数
+                    crossAxisCount: 3,
+
+                    ///纵轴间距
+                    mainAxisSpacing: 0.0,
+
+                    ///横轴间距
+                    crossAxisSpacing: 0.0,
+
+                    ///子组件宽高比
+                    childAspectRatio: (Get.width / 3) / 110),
+                itemBuilder: (context, index) {
+                  return shareItem(
+                    shareList[index]["image"],
+                    shareList[index]["title"],
+                  );
+                },
+                itemCount: shareList.length,
+              ),
+              InkWell(
+                child: const Icon(
+                  Icons.close,
+                  size: 20,
+                  color: Colors.white,
+                ),
+                onTap: () => Navigator.pop(context),
+              )
+            ],
+          ),
+        );
+      });
+
+  ///分享item
+  Widget shareItem(var imgUrl, var title) => SizedBox(
+        height: 80,
+        child: InkWell(
+          splashColor: Colors.transparent,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                imgUrl,
+                scale: 2,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                title,
+                style: const TextStyle(color: Colors.white),
+              )
+            ],
+          ),
+          onTap: () {
+            Navigator.pop(context);
+            EasyLoading.showToast("分享到" + title);
+          },
+        ),
+      );
 }
