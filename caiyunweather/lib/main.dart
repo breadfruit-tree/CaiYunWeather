@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 
 import 'MyDialog.dart';
@@ -64,6 +65,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final UniqueKey paginationKey = UniqueKey();
   var shareList = [
     {
       "image": "images/ssdk_oks_classic_qq.png",
@@ -102,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
       "image": "images/skyicon_partly_cloud_night_widget.png",
       "title": "今天",
       "temp": "2°~7°",
-      "tag": "良好"
+      "tag": "良"
     },
     {
       "image": "images/skyicon_cloud.png",
@@ -111,9 +113,33 @@ class _MyHomePageState extends State<MyHomePage> {
       "tag": "优秀"
     },
   ];
+  var lifeList = [
+    {
+      "image": "images/life_index_airconditioner.png",
+      "title": "空调",
+      "tag": "适合"
+    },
+    {"image": "images/life_index_allergy.png", "title": "过敏", "tag": "不适合"},
+    {"image": "images/life_index_angling.png", "title": "垂钓", "tag": "适合"},
+    {"image": "images/life_index_dating.png", "title": "约会", "tag": "不适合"},
+    {"image": "images/life_index_drink.png", "title": "啤酒", "tag": "适合"},
+    {"image": "images/life_index_drying.png", "title": "晾晒", "tag": "不适合"},
+    {"image": "images/life_index_heatstrole.png", "title": "中暑", "tag": "适合"},
+    {"image": "images/life_index_limit.png", "title": "限行", "tag": "不适合"},
+    {"image": "images/life_index_rain_gear.png", "title": "雨具", "tag": "适合"},
+    {
+      "image": "images/life_index_road_condition.png",
+      "title": "路况",
+      "tag": "不适合"
+    },
+    {"image": "images/life_index_sport.png", "title": "运动", "tag": "不适合"},
+    {"image": "images/life_index_travel.png", "title": "旅游", "tag": "不适合"},
+  ];
 
   @override
   Widget build(BuildContext context) {
+    var page =
+        lifeList.length % 4 > 1 ? lifeList.length % 4 : lifeList.length ~/ 4 + 1;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -129,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
             slivers: [
               SliverToBoxAdapter(
                 child: Container(
-                  height: Get.height - 160,
+                  height: Get.height - 280,
                   child: Stack(
                     children: [
                       // Container(
@@ -236,14 +262,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                   alignment: Alignment.bottomCenter,
                                   child: Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 200, top: 20),
+                                        left: 150, top: 35),
                                     child: InkWell(
                                       child: SizedBox(
-                                        height: 30,
+                                        height: 24,
                                         child: DecoratedBox(
                                           decoration: const BoxDecoration(
                                               borderRadius: BorderRadius.all(
-                                                  Radius.circular(15)),
+                                                  Radius.circular(12)),
                                               color: Colors.white24),
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
@@ -340,7 +366,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Container(
                             child: Padding(
                               padding:
-                                  const EdgeInsets.fromLTRB(15, 120, 15, 40),
+                                  const EdgeInsets.fromLTRB(15, 30, 15, 40),
                               child: Row(
                                 children: [
                                   ClipOval(
@@ -408,7 +434,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                 sliver: SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 140,
+                    height: 110,
                     child: DecoratedBox(
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(
@@ -424,70 +450,153 @@ class _MyHomePageState extends State<MyHomePage> {
                             padding: EdgeInsets.symmetric(vertical: 8),
                             child: Text("今明气温变化不大"),
                           ),
-                          // ListView.separated(
-                          //     shrinkWrap: true,
-                          //     scrollDirection: Axis.horizontal,
-                          //     itemBuilder: (_, index) {
-                          //       var image = weatherReportList[index]["image"];
-                          //       var title = weatherReportList[index]["title"];
-                          //       var tag = weatherReportList[index]["tag"];
-                          //       var tamp = weatherReportList[index]["tamp"];
-                          //       return Text("adasdasd");
-                          //       return SizedBox(
-                          //         height: 110,
-                          //         width: 200,
-                          //         child: Row(
-                          //           children: [
-                          //             Image.asset(
-                          //               image!,
-                          //               scale: 3,
-                          //             ),
-                          //             Column(
-                          //               mainAxisSize: MainAxisSize.min,
-                          //               mainAxisAlignment:
-                          //                   MainAxisAlignment.spaceAround,
-                          //               children: [
-                          //                 Row(
-                          //                   children: [
-                          //                     Text(title!),
-                          //                     DecoratedBox(
-                          //                       decoration: BoxDecoration(
-                          //                           border: Border.all(
-                          //                             color: title == "轻度"
-                          //                                 ? Colors.yellow
-                          //                                 : Colors.green,
-                          //                             width: 1,
-                          //                           ),
-                          //                           borderRadius:
-                          //                               const BorderRadius.all(
-                          //                                   Radius.circular(
-                          //                                       3))),
-                          //                       child: Text(tag!),
-                          //                     )
-                          //                   ],
-                          //                 ),
-                          //                 Text(tamp!)
-                          //               ],
-                          //             )
-                          //           ],
-                          //         ),
-                          //       );
-                          //     },
-                          //     separatorBuilder: (_, index) {
-                          //       return const Divider(
-                          //         height: 110,
-                          //       );
-                          //     },
-                          //     itemCount: weatherReportList.length)
+                          SizedBox(
+                            width: double.infinity,
+                            height: 65,
+                            child: ListView.separated(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (_, index) {
+                                  var image = weatherReportList[index]["image"];
+                                  var title = weatherReportList[index]["title"];
+                                  var tag = weatherReportList[index]["tag"];
+                                  var tamp = weatherReportList[index]["temp"];
+
+                                  return SizedBox(
+                                    width: 150,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          image!,
+                                          scale: 3,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 15),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text(title!),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  DecoratedBox(
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color: tag == "轻度"
+                                                              ? Colors.orange
+                                                              : Colors.green,
+                                                          width: 1,
+                                                        ),
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .all(
+                                                                Radius.circular(
+                                                                    3))),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 3),
+                                                      child: Text(tag!),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              Text(tamp!)
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                                separatorBuilder: (_, index) {
+                                  return Container(
+                                    height: 50,
+                                    color: Colors.grey.withOpacity(0.3),
+                                    width: 0.5,
+                                  );
+                                },
+                                itemCount: weatherReportList.length),
+                          )
                         ],
                       ),
                     ),
                   ),
                 ),
               ),
-              // ListView.builder(itemBuilder: (_,int index)=>Container(
-              //   height: 50,
-              // ),itemCount: 10,)
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+                sliver: SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 250,
+                    child: DecoratedBox(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 15),
+                            child: Text(
+                              "生活指数",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 200,
+                            child: Swiper(
+                              key: paginationKey,
+                              autoplay: true,
+
+                              ///控制指示器位于分页下面还是页面内
+                              outer: false,
+                              itemCount: 5,
+                              itemBuilder: (BuildContext context, int index) {
+                                return SizedBox(
+                                  child: GridView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+
+                                            ///横轴元素个数
+                                            crossAxisCount: 4,
+
+                                            ///子组件宽高比
+                                            childAspectRatio:
+                                                (Get.width / 4) / 110),
+                                    itemBuilder: (context, index) {
+                                      return Text("asdadsa");
+                                    },
+                                    itemCount: lifeList.length,
+                                  ),
+                                );
+                              },
+                              pagination: const DotSwiperPaginationBuilder(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           SizedBox(

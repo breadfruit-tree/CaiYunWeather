@@ -40,8 +40,8 @@ class MyDialog extends Dialog {
       type: MaterialType.transparency,
       child: Center(
         child: SizedBox(
-          height: 370,
-          width: 400,
+          height: 340,
+          width: Get.width - 30,
           child: DecoratedBox(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
@@ -52,7 +52,7 @@ class MyDialog extends Dialog {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 30),
                   child: Stack(
                     children: [
                       Align(
@@ -67,7 +67,7 @@ class MyDialog extends Dialog {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(top: 30),
+                  padding: const EdgeInsets.only(top: 20),
                   width: double.infinity,
                   child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -84,7 +84,7 @@ class MyDialog extends Dialog {
                         crossAxisSpacing: 0.0,
 
                         ///子组件宽高比
-                        childAspectRatio: (Get.width / 3) / 130),
+                        childAspectRatio: (Get.width / 3) / 120),
                     itemBuilder: (context, index) {
                       return weatherItem(
                         weatherList[index]["image"],
@@ -98,30 +98,33 @@ class MyDialog extends Dialog {
                   height: 0.5,
                 ),
                 Row(
-                  children: const [
-                    Expanded(
+                  children: [
+                    const Expanded(
                         child: InkWell(
-                          child: SizedBox(
-                            height: 64,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(8))),
-                              child: Center(
-                                child: Text(
-                                  "取消",
-                                  style: TextStyle(color: Colors.black, fontSize: 16),
-                                ),
-                              ),
+                      child: SizedBox(
+                        height: 45,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(8))),
+                          child: Center(
+                            child: Text(
+                              "取消",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             ),
                           ),
-                        )),
-                    Divider(
-                      thickness: 0.5,
+                        ),
+                      ),
+                    )),
+                    Container(
+                      color: Colors.grey.withOpacity(0.5),
+                      width: 0.5,
+                      height: 50,
                     ),
-                    Expanded(
+                    const Expanded(
                         child: SizedBox(
-                      height: 64,
+                      height: 45,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
@@ -149,25 +152,36 @@ class MyDialog extends Dialog {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ClipOval(
+            Container(
+              height: 50,
               child: DecoratedBox(
                 decoration: const BoxDecoration(
-                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.black54,
-                          offset: Offset(4.0, 4.0),
-                          blurRadius: 4.0)
+                          color: Colors.grey,
+                          blurRadius: 2.0,
+                          blurStyle: BlurStyle.outer)
                     ]),
-                child: Image.asset(
-                  imgUrl,
-                  fit: BoxFit.cover,
-                  scale: 2,
-                ),
+                child: ClipOval(
+                    child: Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: ClipOval(
+                      child: Image.asset(
+                        imgUrl,
+                        fit: BoxFit.fill,
+                        scale: 2,
+                      ),
+                    ),
+                  ),
+                  color: Colors.white,
+                )),
               ),
+              margin: const EdgeInsets.all(5),
             ),
             const SizedBox(
-              height: 5,
+              height: 10,
             ),
             Text(
               title,
