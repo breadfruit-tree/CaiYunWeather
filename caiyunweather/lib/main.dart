@@ -136,10 +136,19 @@ class _MyHomePageState extends State<MyHomePage> {
     {"image": "images/life_index_travel.png", "title": "旅游", "tag": "不适合"},
   ];
 
+  final int EVERY_PAGE_ITEM_COUNT = 4;
+
+  late int page;
+
+  ///处理带指示器导航栏数据时候展示用的list
+  List<Map<String, dynamic>> showList = [];
+
   @override
   Widget build(BuildContext context) {
-    var page =
-        lifeList.length % 4 > 1 ? lifeList.length % 4 : lifeList.length ~/ 4 + 1;
+    page = lifeList.length % EVERY_PAGE_ITEM_COUNT == 0
+        ? (lifeList.length ~/ EVERY_PAGE_ITEM_COUNT)
+        : (lifeList.length ~/ EVERY_PAGE_ITEM_COUNT + 1);
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -565,8 +574,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
                               ///控制指示器位于分页下面还是页面内
                               outer: false,
-                              itemCount: 5,
-                              itemBuilder: (BuildContext context, int index) {
+                              itemCount: page,
+                              itemBuilder:
+                                  (BuildContext context, int pageIndex) {
+                                showList.clear();
+                                if (pageIndex >= page) {
+                                  return const Text("adasd");
+                                }
+                                for (var i = 0; i < page; i++) {
+                                  if (pageIndex == i) {
+                                    showList = lifeList
+                                        .getRange(i * EVERY_PAGE_ITEM_COUNT, (i + 1) * EVERY_PAGE_ITEM_COUNT)
+                                        .toList();
+                                  }
+                                }
                                 return SizedBox(
                                   child: GridView.builder(
                                     physics:
@@ -576,15 +597,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                         SliverGridDelegateWithFixedCrossAxisCount(
 
                                             ///横轴元素个数
-                                            crossAxisCount: 4,
+                                            crossAxisCount: 2,
 
                                             ///子组件宽高比
                                             childAspectRatio:
-                                                (Get.width / 4) / 110),
+                                                (Get.width / 2) / 110),
                                     itemBuilder: (context, index) {
-                                      return Text("asdadsa");
+                                      return Text(showList[index]["title"]);
                                     },
-                                    itemCount: lifeList.length,
+                                    itemCount: showList.length,
                                   ),
                                 );
                               },
