@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:caiyunweather/SelfCustomPaginationBuilder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 
 import 'MyDialog.dart';
+import 'constant.dart';
+import 'life_index_make.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       //去掉debug右上角标志
@@ -66,75 +69,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final UniqueKey paginationKey = UniqueKey();
-  var shareList = [
-    {
-      "image": "images/ssdk_oks_classic_qq.png",
-      "title": "QQ",
-    },
-    {
-      "image": "images/ssdk_oks_classic_qzone.png",
-      "title": "QQ空间",
-    },
-    {
-      "image": "images/ssdk_oks_classic_sinaweibo.png",
-      "title": "微博",
-    },
-    {
-      "image": "images/ssdk_oks_classic_wechat.png",
-      "title": "微信",
-    },
-    {
-      "image": "images/ssdk_oks_classic_wechatmoments.png",
-      "title": "朋友圈",
-    },
-  ];
-  var weatherStatus = [
-    {"image": "images/map_layer_temp.png", "title": "体感", "tag": "-2°"},
-    {"image": "images/icon_windpower.png", "title": "风", "tag": "北风3级"},
-    {"image": "images/push_icon_humidity.png", "title": "湿度", "tag": "65%"},
-  ];
-  var weatherReportList = [
-    {
-      "image": "images/skyicon_partly_cloud_widget.png",
-      "title": "昨天",
-      "temp": "3°~20°",
-      "tag": "轻度"
-    },
-    {
-      "image": "images/skyicon_partly_cloud_night_widget.png",
-      "title": "今天",
-      "temp": "2°~7°",
-      "tag": "良"
-    },
-    {
-      "image": "images/skyicon_cloud.png",
-      "title": "明天",
-      "temp": "1°-8°",
-      "tag": "优秀"
-    },
-  ];
-  var lifeList = [
-    {
-      "image": "images/life_index_airconditioner.png",
-      "title": "空调",
-      "tag": "适合"
-    },
-    {"image": "images/life_index_allergy.png", "title": "过敏", "tag": "不适合"},
-    {"image": "images/life_index_angling.png", "title": "垂钓", "tag": "适合"},
-    {"image": "images/life_index_dating.png", "title": "约会", "tag": "不适合"},
-    {"image": "images/life_index_drink.png", "title": "啤酒", "tag": "适合"},
-    {"image": "images/life_index_drying.png", "title": "晾晒", "tag": "不适合"},
-    {"image": "images/life_index_heatstrole.png", "title": "中暑", "tag": "适合"},
-    {"image": "images/life_index_limit.png", "title": "限行", "tag": "不适合"},
-    {"image": "images/life_index_rain_gear.png", "title": "雨具", "tag": "适合"},
-    {
-      "image": "images/life_index_road_condition.png",
-      "title": "路况",
-      "tag": "不适合"
-    },
-    {"image": "images/life_index_sport.png", "title": "运动", "tag": "不适合"},
-    {"image": "images/life_index_travel.png", "title": "旅游", "tag": "不适合"},
-  ];
+
 
   final int EVERY_PAGE_ITEM_COUNT = 4;
 
@@ -545,7 +480,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
                 sliver: SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 250,
+                    height: 210,
                     child: DecoratedBox(
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(
@@ -557,17 +492,31 @@ class _MyHomePageState extends State<MyHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 15),
-                            child: Text(
-                              "生活指数",
-                              style: TextStyle(fontSize: 16),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 15),
+                            child: Row(
+                              children: [
+                                const Text(
+                                  "生活指数",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                const Spacer(),
+                                InkWell(
+                                  onTap: () => Get.to(
+                                      () => const LifeIndexMakePageView()),
+                                  child: const Text(
+                                    "编辑",
+                                    style: TextStyle(
+                                        fontSize: 13, color: Colors.green),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           SizedBox(
                             width: double.infinity,
-                            height: 200,
+                            height: 160,
                             child: Swiper(
                               key: paginationKey,
                               autoplay: true,
@@ -584,32 +533,62 @@ class _MyHomePageState extends State<MyHomePage> {
                                 for (var i = 0; i < page; i++) {
                                   if (pageIndex == i) {
                                     showList = lifeList
-                                        .getRange(i * EVERY_PAGE_ITEM_COUNT, (i + 1) * EVERY_PAGE_ITEM_COUNT)
+                                        .getRange(i * EVERY_PAGE_ITEM_COUNT,
+                                            (i + 1) * EVERY_PAGE_ITEM_COUNT)
                                         .toList();
                                   }
                                 }
-                                return SizedBox(
-                                  child: GridView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                return GridView.builder(
+                                  physics:
+                                      const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
 
-                                            ///横轴元素个数
-                                            crossAxisCount: 2,
+                                          ///横轴元素个数
+                                          crossAxisCount: 2,
 
-                                            ///子组件宽高比
-                                            childAspectRatio:
-                                                (Get.width / 2) / 110),
-                                    itemBuilder: (context, index) {
-                                      return Text(showList[index]["title"]);
-                                    },
-                                    itemCount: showList.length,
-                                  ),
+                                          ///子组件宽高比
+                                          childAspectRatio:
+                                              (Get.width / 2) / 80),
+                                  itemBuilder: (context, index) {
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          showList[index]["image"],
+                                          scale: 3,
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(showList[index]["title"]),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(showList[index]["tag"]),
+                                          ],
+                                        )
+                                      ],
+                                    );
+                                  },
+                                  itemCount: showList.length,
                                 );
                               },
-                              pagination: const DotSwiperPaginationBuilder(),
+                              pagination: const SelfCustomPagination(
+                                  alignment: Alignment.bottomCenter,
+                                  margin: EdgeInsets.only(bottom: 0),
+                                  builder: SelfCustomPaginationBuilder(
+                                      color: Color(0xff8993AB),
+                                      activeColor: Colors.green,
+                                      size: 4,
+                                      activeSize: 14)),
                             ),
                           ),
                         ],
