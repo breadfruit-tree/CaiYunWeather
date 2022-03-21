@@ -504,7 +504,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 const Spacer(),
                                 InkWell(
                                   onTap: () => Get.to(
-                                      () => const LifeIndexMakePageView()),
+                                      () =>  LifeIndexMakePageView()),
                                   child: const Text(
                                     "编辑",
                                     style: TextStyle(
