@@ -46,7 +46,9 @@ var weatherReportList = [
     "tag": "优秀"
   },
 ];
-var lifeList = [
+
+///加上final关键字之后，使得后面页面的改动会影响首页。
+final List<Map<String, dynamic>> lifeList = [
   {"image": "images/life_index_airconditioner.png", "title": "空调", "tag": "适合"},
   {"image": "images/life_index_allergy.png", "title": "过敏", "tag": "不适合"},
   {"image": "images/life_index_angling.png", "title": "垂钓", "tag": "适合"},
@@ -63,4 +65,4 @@ var lifeList = [
   },
   {"image": "images/life_index_sport.png", "title": "运动", "tag": "不适合"},
   {"image": "images/life_index_travel.png", "title": "旅游", "tag": "不适合"},
-];
+].toList();

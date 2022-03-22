@@ -9,6 +9,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 
+import 'DragDemo.dart';
 import 'MyDialog.dart';
 import 'constant.dart';
 import 'life_index_make.dart';
@@ -504,7 +505,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 const Spacer(),
                                 InkWell(
                                   onTap: () => Get.to(
-                                      () =>  LifeIndexMakePageView()),
+                                      () =>  const LifeIndexMakePageView()),
                                   child: const Text(
                                     "编辑",
                                     style: TextStyle(

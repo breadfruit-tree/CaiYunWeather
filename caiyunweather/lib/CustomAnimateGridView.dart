@@ -1,5 +1,6 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
+//
 // const int Trigger = 1;
 // const int Cancle = 2;
 // const int SelectAll = 3;
@@ -33,9 +34,10 @@
 //   final bool shrinkWrap;
 //   final EdgeInsetsGeometry padding;
 //   final Map<int, Function> actionToken;
+//   final Key? key;
 //
 //   CustomAnimateGridView({
-//     Key key,
+//     this.key,
 //     required this.delegate,
 //     required this.itemCount,
 //     required this.itemBuilder,
@@ -56,25 +58,26 @@
 //   State<StatefulWidget> createState() {
 //     return _CustomAnimateGridViewState();
 //   }
-//   // const CustomAnimateGridView({Key? key}) : super(key: key);
-//   //
-//   // @override
-//   // _CustomAnimateGridViewState createState() => _CustomAnimateGridViewState();
+// // const CustomAnimateGridView({Key? key}) : super(key: key);
+// //
+// // @override
+// // _CustomAnimateGridViewState createState() => _CustomAnimateGridViewState();
 // }
 //
-// class _CustomAnimateGridViewState extends State<CustomAnimateGridView> with TickerProviderStateMixin{
+// class _CustomAnimateGridViewState extends State<CustomAnimateGridView>
+//     with TickerProviderStateMixin {
 //   final List<int> selectedItems = []; // 被选中的item的index集合
 //   final List<int> remainsItems = []; // 删除后将会保留的item的index集合
 //
-//   Size _itemSize;
+//   late Size _itemSize;
 //
-//   StateSetter _deleteSheetState;
+//   late StateSetter _deleteSheetState;
 //
-//   AnimationController _slideController;
-//   AnimationController _deleteSheetController;
-//   Animation<Offset> _deleteSheetAnimation;
+//   late AnimationController _slideController;
+//   late AnimationController _deleteSheetController;
+//   late Animation<Offset> _deleteSheetAnimation;
 //
-//   int _oldItemCount;
+//   late int _oldItemCount;
 //
 //   bool _needToAnimate = false; // 是否需要进行平移动画
 //   bool _readyToDelete = false; // 是否是删除状态
@@ -86,13 +89,13 @@
 //   void initState() {
 //     super.initState();
 //     initActionTokenes();
-//     _slideController =
-//         AnimationController(vsync: this, duration: const Duration(milliseconds: 250));
-//     _deleteSheetController =
-//         AnimationController(vsync: this, duration: const Duration(milliseconds: 150));
+//     _slideController = AnimationController(
+//         vsync: this, duration: const Duration(milliseconds: 250));
+//     _deleteSheetController = AnimationController(
+//         vsync: this, duration: const Duration(milliseconds: 150));
 //     _deleteSheetAnimation =
-//         Tween(begin: const Offset(0.0, 1.0), end: const Offset(0.0, 0.0)).animate(
-//             CurvedAnimation(
+//         Tween(begin: const Offset(0.0, 1.0), end: const Offset(0.0, 0.0))
+//             .animate(CurvedAnimation(
 //                 parent: _deleteSheetController, curve: Curves.easeOut));
 //   }
 //
@@ -137,7 +140,7 @@
 //                 physics: (widget.physics != null
 //                     ? widget.physics
 //                     : BouncingScrollPhysics(
-//                     parent: AlwaysScrollableScrollPhysics())),
+//                         parent: AlwaysScrollableScrollPhysics())),
 //                 shrinkWrap: widget.shrinkWrap,
 //                 padding: widget.padding,
 //                 itemBuilder: (context, index) {
@@ -365,7 +368,6 @@
 //   }
 // }
 //
-//
 // class _GridItem extends StatefulWidget {
 //   final int index;
 //
@@ -447,56 +449,56 @@
 //   Widget buildItem(BuildContext context) {
 //     return (widget.readyToDelete
 //         ? Stack(
-//       children: <Widget>[
-//         widget.child,
-//         Align(
-//           alignment: Alignment.topRight,
-//           child: StatefulBuilder(builder: (context, state) {
-//             return Checkbox(
-//                 value: widget._isSelected,
-//                 onChanged: (isSelected) {
-//                   state(() {
-//                     widget._isSelected = isSelected!;
-//                     widget.onItemSelectedChanged(
-//                         widget.index, isSelected);
-//                   });
-//                 });
-//           }),
-//         )
-//       ],
-//     )
+//             children: <Widget>[
+//               widget.child,
+//               Align(
+//                 alignment: Alignment.topRight,
+//                 child: StatefulBuilder(builder: (context, state) {
+//                   return Checkbox(
+//                       value: widget._isSelected,
+//                       onChanged: (isSelected) {
+//                         state(() {
+//                           widget._isSelected = isSelected!;
+//                           widget.onItemSelectedChanged(
+//                               widget.index, isSelected);
+//                         });
+//                       });
+//                 }),
+//               )
+//             ],
+//           )
 //         : LongPressDraggable<int>(
-//       data: widget.index,
-//       child: (_isDragging
-//           ? const Material(
-//         color: Colors.transparent,
-//       )
-//           : buildItemChild()),
-//       feedback: StatefulBuilder(builder: (context, state) {
-//         return SizedBox.fromSize(size: _size, child: widget.child);
-//       }),
-//       onDragStarted: () {
-//         setState(() {
-//           _isDragging = true;
-//           widget.singleDeleteStart();
-//         });
-//       },
-//       onDragEnd: (details) {
-//         if (widget.singleDeleteCancle()) {
-//           _isDragging = false;
-//         } else {
-//           setState(() {
-//             _isDragging = false;
-//           });
-//         }
-//       },
-//       onDraggableCanceled: (velocity, offset) {
-//         setState(() {
-//           _isDragging = false;
-//           widget.singleDeleteCancle();
-//         });
-//       },
-//     ));
+//             data: widget.index,
+//             child: (_isDragging
+//                 ? const Material(
+//                     color: Colors.transparent,
+//                   )
+//                 : buildItemChild()),
+//             feedback: StatefulBuilder(builder: (context, state) {
+//               return SizedBox.fromSize(size: _size, child: widget.child);
+//             }),
+//             onDragStarted: () {
+//               setState(() {
+//                 _isDragging = true;
+//                 widget.singleDeleteStart();
+//               });
+//             },
+//             onDragEnd: (details) {
+//               if (widget.singleDeleteCancle()) {
+//                 _isDragging = false;
+//               } else {
+//                 setState(() {
+//                   _isDragging = false;
+//                 });
+//               }
+//             },
+//             onDraggableCanceled: (velocity, offset) {
+//               setState(() {
+//                 _isDragging = false;
+//                 widget.singleDeleteCancle();
+//               });
+//             },
+//           ));
 //   }
 //
 //   // 若动画不为空，则添加动画控件
