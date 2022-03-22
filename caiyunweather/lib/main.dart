@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:caiyunweather/SelfCustomPaginationBuilder.dart';
+import 'package:caiyunweather/reorder_card_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 
-import 'DragDemo.dart';
 import 'MyDialog.dart';
 import 'constant.dart';
 import 'life_index_make.dart';
@@ -70,7 +70,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final UniqueKey paginationKey = UniqueKey();
-
 
   final int EVERY_PAGE_ITEM_COUNT = 4;
 
@@ -505,7 +504,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 const Spacer(),
                                 InkWell(
                                   onTap: () => Get.to(
-                                      () =>  const LifeIndexMakePageView()),
+                                      () => const LifeIndexMakePageView()),
                                   child: const Text(
                                     "编辑",
                                     style: TextStyle(
@@ -540,8 +539,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   }
                                 }
                                 return GridView.builder(
-                                  physics:
-                                      const NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
@@ -595,6 +593,45 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                     ),
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+                sliver: SliverToBoxAdapter(
+                  child: InkWell(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            height: 25,
+                            width: 100,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(3)),
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1)),
+                              child: Row(
+                                children: const [
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Icon(
+                                    Icons.reorder,
+                                    color: Colors.grey,
+                                    size: 18,
+                                  ),
+                                  Text(
+                                    "卡片排序",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                    onTap: () => Get.to(() => const ReorderCardPageView()),
                   ),
                 ),
               ),

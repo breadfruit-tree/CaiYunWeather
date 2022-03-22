@@ -66,3 +66,19 @@ final List<Map<String, dynamic>> lifeList = [
   {"image": "images/life_index_sport.png", "title": "运动", "tag": "不适合"},
   {"image": "images/life_index_travel.png", "title": "旅游", "tag": "不适合"},
 ].toList();
+
+
+var reorderList = [
+  {"title": "短临降雨预报","ps": "", "isSelected": true},
+  {"title": "实时天气","ps": "该卡片仅在地图模式下展示", "isSelected": true},
+  {"title": "今明天气","ps": "", "isSelected": true},
+  {"title": "活动卡片","ps": "该卡片仅在地图模式下展示", "isSelected": false},
+  {"title": "逐小时预报","ps": "建议与15日预报联动查看", "isSelected": true},
+  {"title": "15日预报","ps": "", "isSelected": true},
+  {"title": "专业数据","ps": "", "isSelected": false},
+  {"title": "生活指数","ps": "", "isSelected": false},
+  {"title": "日出日落","ps": "", "isSelected": false},
+];
+
+///当前未添加的卡片信息
+var unInsertList = [];

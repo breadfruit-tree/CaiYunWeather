@@ -71,8 +71,13 @@ class _LifeIndexMakePageViewState extends State<LifeIndexMakePageView> {
               itemBuilder: (BuildContext context, int index) {
                 var img = lifeList[index]["image"];
                 var title = lifeList[index]["title"];
+
+                ///todo
+                ///其实还可以再更进一步，加上拖动的时候gridview移动的效果，例如：拖动第一个的时候，后面的逐渐根据当前willAccept的只不断前移
+                ///但是，目前index的获取有问题，所以暂时搁置
                 return LongPressDraggable(
                   data: index,
+
                   ///当子child和feedback为同一个Widget时，可以设为false配合GlobalKey确保是同一个Widget 减少绘制
                   // ignoringFeedbackSemantics: false,
                   child: DragTarget<int>(
@@ -98,6 +103,7 @@ class _LifeIndexMakePageViewState extends State<LifeIndexMakePageView> {
                     },
                     builder: (context, data, rejects) => Container(
                       margin: const EdgeInsets.all(1),
+
                       ///配合上面LongPressDraggable 的ignoringFeedbackSemantics属性的
                       // key: GlobalKey(),
                       child: DecoratedBox(
